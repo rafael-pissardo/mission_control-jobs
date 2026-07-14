@@ -10,10 +10,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <%= stylesheet_link_tag "mission_control/jobs/bulma.min" %>
-  <%= stylesheet_link_tag "mission_control/jobs/application", "data-turbo-track": "reload" %>
+  <% %w[tokens theme layout list components bulma-overrides forms jobs].each do |stylesheet| %>
+    <%= stylesheet_link_tag "mission_control/jobs/#{stylesheet}", "data-turbo-track": "reload" %>
+  <% end %>
   <%= javascript_importmap_tags "application", importmap: MissionControl::Jobs.importmap  %>
 </head>
 <body class="mc-body">

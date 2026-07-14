@@ -1,7 +1,9 @@
 module UIHelper
   def hover_app_selector(and_click:)
-    find(".application-selector").hover
-    find(".application-selector .navbar-item", text: and_click).click
+    within ".application-selector" do
+      find("summary.mc-dropdown-trigger").click
+      click_on and_click
+    end
   end
 
   def click_on_server_selector(name)

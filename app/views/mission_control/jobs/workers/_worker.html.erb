@@ -1,21 +1,29 @@
 <tr class="worker">
   <td>
-    <%= link_to "worker #{worker.id}", application_worker_path(@application, worker.id), class: "mc-job-link" %>
-    <br />
-    <%= worker.name %>
-  </td>
-  <td><%= worker.hostname %></td>
-  <td>
-    <% worker.jobs.each do |job| %>
-      <div>
-        <%= link_to job_title(job), application_job_path(@application, job.job_id), class: "mc-job-link" %>
+    <div class="mc-list-row mc-list-row--workers">
+      <div class="mc-list-primary">
+        <%= link_to "Worker #{worker.id}", application_worker_path(@application, worker.id), class: "mc-list-link" %>
+        <div class="mc-meta"><%= worker.name %></div>
+      </div>
 
-        <% if job.serialized_arguments.present? %>
-          <div class="mc-code-inline is-family-monospace is-size-7"><%= job_arguments(job) %></div>
+      <div class="mc-list-secondary">
+        <span><%= worker.hostname %></span>
+      </div>
+
+      <div class="mc-list-stack">
+        <% worker.jobs.each do |job| %>
+          <div class="mc-list-stack-item">
+            <%= link_to job_title(job), application_job_path(@application, job.job_id), class: "mc-list-link" %>
+            <% if job.serialized_arguments.present? %>
+              <div class="mc-code-inline"><%= job_arguments(job) %></div>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
-  </td>
 
-  <td><div class="mc-meta has-text-grey"><%= time_distance_in_words_with_title(worker.last_heartbeat_at) %> ago</div></td>
+      <div class="mc-list-secondary mc-list-secondary--muted">
+        <%= time_distance_in_words_with_title(worker.last_heartbeat_at) %> ago
+      </div>
+    </div>
+  </td>
 </tr>

@@ -1,6 +1,6 @@
-<div class="mc-toolbar-row">
+<div class="mc-command-bar-actions">
   <% if jobs_status.failed? %>
-    <div class="buttons is-right">
+    <div class="mc-action-group">
       <% target = active_filters? ? "selection" : "all" %>
 
       <%= button_to "Discard #{target}", application_bulk_discards_path(@application, **jobs_filter_param),

@@ -1,12 +1,20 @@
+<% navigation(section: :queues) %>
+
+<%= render "mission_control/jobs/queues/queue_title", queue: @queue %>
+
 <% if @jobs_page.empty? %>
   <%= blank_status_notice "The queue is empty" %>
 <% else %>
   <div class="mc-table-wrapper">
-    <table class="jobs table queues mc-table is-fullwidth">
+    <table class="jobs table queues mc-table mc-table--list mc-table--queue-jobs is-fullwidth">
       <thead>
         <tr>
-          <th class="job-header" scope="col">Job</th>
-          <th scope="col"></th>
+          <th scope="col">
+            <div class="mc-list-row mc-list-row--queue-jobs mc-list-row--header">
+              <span class="mc-list-label">Job</span>
+              <span class="mc-list-label">Arguments</span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>

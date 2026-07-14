@@ -1,11 +1,19 @@
 <div class="mc-table-wrapper">
-  <table class="jobs <%= jobs_status %> table mc-table is-fullwidth">
+  <table class="jobs <%= jobs_status %> table mc-table mc-table--list mc-table--jobs-<%= jobs_status %> is-fullwidth">
     <thead>
       <tr>
-        <th class="job-header" scope="col">Job</th>
-        <% attribute_names_for_job_status(jobs_status).each do |attribute| %>
-          <th scope="col"><%= attribute %></th>
-        <% end %>
+        <th scope="col">
+          <div class="mc-list-row mc-list-row--jobs-<%= jobs_status %> mc-list-row--header">
+            <span class="mc-list-label">Job</span>
+            <% attribute_names_for_job_status(jobs_status).each do |attribute| %>
+              <% next if attribute.blank? %>
+              <span class="mc-list-label"><%= attribute %></span>
+            <% end %>
+            <% if jobs_status.in?(%w[failed blocked scheduled]) %>
+              <span class="mc-list-label"><span class="is-sr-only">Job </span>Actions</span>
+            <% end %>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>

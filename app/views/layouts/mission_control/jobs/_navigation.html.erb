@@ -1,15 +1,17 @@
 <nav class="mc-nav" aria-label="Job sections">
-  <ul class="mc-nav-list">
-    <% navigation_sections.each do |key, (label, url)| %>
-      <% nav_label, nav_count = navigation_label_parts(label) %>
-      <li>
-        <%= link_to url, class: class_names("mc-nav-link", "is-active" => key == current_section) do %>
-          <span class="mc-nav-label"><%= nav_label %></span>
-          <% if nav_count %>
-            <span class="mc-nav-badge"><%= nav_count %></span>
+  <div class="mc-nav-scroll">
+    <ul class="mc-nav-list">
+      <% navigation_sections.each do |key, (label, url)| %>
+        <% nav_label, nav_count = navigation_label_parts(label) %>
+        <li class="mc-nav-item">
+          <%= link_to url, class: class_names("mc-nav-link", "is-active" => key == current_section) do %>
+            <span class="mc-nav-label"><%= nav_label %></span>
+            <% if nav_count %>
+              <span class="<%= class_names("mc-nav-badge", "mc-nav-badge--emphasis" => nav_count.present? && nav_count != "0") %>"><%= nav_count %></span>
+            <% end %>
           <% end %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </nav>

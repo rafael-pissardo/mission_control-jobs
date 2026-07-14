@@ -1,14 +1,15 @@
-<nav class="mc-header-bar" aria-label="Application navigation">
+<div class="mc-header-bar">
   <div class="mc-header-start">
     <% if defined?(main_app.root_path) %>
       <%= link_to main_app.root_path, class: "mc-back-link" do %>
-        <span aria-hidden="true">←</span> Back to app
+        <span class="mc-back-icon" aria-hidden="true">←</span>
+        <span>Back to app</span>
       <% end %>
     <% end %>
   </div>
 
   <div class="mc-header-brand">
-    <span class="mc-brand-mark" aria-hidden="true">◆</span>
+    <span class="mc-brand-mark" aria-hidden="true"></span>
     <span class="mc-brand-text">Mission Control</span>
   </div>
 
@@ -16,4 +17,4 @@
     <%= render "layouts/mission_control/jobs/application_selection/servers", application: @application %>
     <%= render "layouts/mission_control/jobs/application_selection/applications" if selectable_applications.any? %>
   </div>
-</nav>
+</div>

@@ -1,8 +1,23 @@
 /*
+ * Sprockets manifest for host apps using the classic asset pipeline.
+ * Propshaft loads each stylesheet via the layout; @import provides a single-file fallback.
+ */
+@import url("tokens.css");
+@import url("theme.css");
+@import url("layout.css");
+@import url("list.css");
+@import url("components.css");
+@import url("bulma-overrides.css");
+@import url("forms.css");
+@import url("jobs.css");
+
+/*
  *= require tokens
  *= require theme
  *= require layout
+ *= require list
  *= require components
+ *= require bulma-overrides
  *= require forms
  *= require jobs
  *= require_self

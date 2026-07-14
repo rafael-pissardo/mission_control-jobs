@@ -1,10 +1,14 @@
-<td><%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-job-link" %></td>
-<td>
+<div class="mc-list-secondary">
+  <%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-list-link mc-list-link--subtle" %>
+</div>
+
+<div class="mc-list-secondary">
   <%= bidirectional_time_distance_in_words_with_title(job.scheduled_at) %>
   <% if job_delayed?(job) %>
-    <span class="mc-tag mc-tag--danger ml-2">delayed</span>
+    <span class="mc-tag mc-tag--danger">delayed</span>
   <% end %>
-</td>
-<td class="pr-0">
+</div>
+
+<div class="mc-list-actions">
   <%= render "mission_control/jobs/jobs/scheduled/actions", job: job %>
-</td>
+</div>

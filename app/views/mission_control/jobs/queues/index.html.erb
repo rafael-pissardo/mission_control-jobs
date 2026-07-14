@@ -1,10 +1,18 @@
+<% navigation(section: :queues) %>
+
 <div class="mc-table-wrapper">
-  <table class="queues table mc-table is-fullwidth">
+  <table class="queues table mc-table mc-table--list mc-table--queues is-fullwidth">
     <thead>
       <tr>
-        <th scope="col">Queue</th>
-        <th scope="col">Pending jobs</th>
-        <th scope="col"><span class="is-sr-only">Actions</span></th>
+        <th scope="col">
+          <div class="mc-list-row mc-list-row--queues mc-list-row--header">
+            <span class="mc-list-label">Queue</span>
+            <div class="mc-list-trailing mc-list-trailing--queues">
+              <span class="mc-list-sublabel">Pending</span>
+              <span class="mc-list-sublabel">Action</span>
+            </div>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>

@@ -1,0 +1,172 @@
+.mc-table--list thead th {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: inherit;
+  font-weight: inherit;
+  padding-bottom: var(--mc-space-2);
+}
+
+.mc-list-row {
+  display: grid;
+  align-items: center;
+  gap: var(--mc-space-4);
+  width: 100%;
+}
+
+.mc-list-row--header {
+  color: var(--mc-text-muted);
+}
+
+.mc-list-label,
+.mc-list-sublabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mc-list-row--queues {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.mc-list-trailing--queues {
+  display: grid;
+  grid-template-columns: 3.5rem 5.5rem;
+  align-items: center;
+  justify-items: center;
+  column-gap: var(--mc-space-3);
+}
+
+.mc-list-row--queue-jobs {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.mc-list-row--workers {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
+}
+
+.mc-list-row--jobs-failed {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.5fr) 7.5rem;
+}
+
+.mc-list-row--jobs-in_progress {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 0.9fr);
+}
+
+.mc-list-row--jobs-blocked,
+.mc-list-row--jobs-scheduled {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1fr) 7.5rem;
+}
+
+.mc-list-row--jobs-finished {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 0.8fr);
+}
+
+.mc-list-primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mc-space-1);
+  min-width: 0;
+}
+
+.mc-list-secondary,
+.mc-list-stack {
+  min-width: 0;
+  font-size: 0.875rem;
+}
+
+.mc-list-secondary--muted {
+  color: var(--mc-text-muted);
+  font-size: 0.8125rem;
+}
+
+.mc-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mc-space-2);
+}
+
+.mc-list-stack-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mc-list-link {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--mc-text);
+  text-decoration: none;
+  transition: color 160ms;
+}
+
+.mc-list-link:hover {
+  color: var(--mc-primary-hover);
+}
+
+.mc-list-link--subtle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--mc-text-muted);
+}
+
+.mc-list-link--subtle:hover {
+  color: var(--mc-primary-hover);
+}
+
+.mc-list-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 3.5rem;
+  height: 1.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--mc-text);
+  background: rgb(139 154 255 / 10%);
+  border: 1px solid rgb(139 154 255 / 22%);
+  border-radius: var(--mc-radius-pill);
+}
+
+.mc-list-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--mc-space-2);
+}
+
+.mc-list-trailing--queues form.button_to {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 5.5rem;
+  margin: 0;
+}
+
+.mc-list-actions .mc-button,
+.mc-list-actions form.button_to .mc-button {
+  width: 100%;
+}
+
+.mc-app .mc-table-wrapper .table.mc-table.mc-table--list tbody tr:hover td {
+  box-shadow: inset 3px 0 0 var(--mc-primary);
+}
+
+@media (max-width: 767px) {
+  .mc-list-row--workers,
+  .mc-list-row--jobs-failed,
+  .mc-list-row--jobs-in_progress,
+  .mc-list-row--jobs-blocked,
+  .mc-list-row--jobs-scheduled,
+  .mc-list-row--jobs-finished,
+  .mc-list-row--queue-jobs {
+    grid-template-columns: 1fr;
+    gap: var(--mc-space-2);
+  }
+
+  .mc-list-trailing--queues {
+    justify-self: start;
+  }
+}

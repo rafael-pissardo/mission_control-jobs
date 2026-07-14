@@ -1,7 +1,9 @@
+<% navigation(title: "#{jobs_status.to_s.titleize} jobs", section: navigation_section_for_status(jobs_status.to_sym)) %>
+
 <% if @jobs_page.empty? && !active_filters? %>
   <%= blank_status_notice "There are no #{jobs_status.dasherize} jobs" %>
 <% else %>
-  <div class="mc-toolbar-row">
+  <div class="mc-command-bar mc-panel">
     <%= render "mission_control/jobs/jobs/filters", job_class_names: @job_class_names, queue_names: @queue_names %>
     <%= render "mission_control/jobs/jobs/toolbar", jobs_count: @jobs_count %>
   </div>

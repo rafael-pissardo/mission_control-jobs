@@ -11,6 +11,10 @@ class MissionControl::Jobs::WorkersControllerTest < ActionDispatch::IntegrationT
       worker = @server.workers_relation.first
       get mission_control_jobs.application_workers_url(@application)
 
+      assert_select "link[href*='mission_control/jobs/layout']"
+      assert_select "link[href*='mission_control/jobs/components']"
+      assert_select ".mc-header-bar"
+      assert_select ".mc-nav-list"
       assert_select "tr.worker", 1
       assert_select "tr.worker", /worker #{worker.id}\s+PID: \d+\s+my-hostname-123\s+PauseJob/
     end

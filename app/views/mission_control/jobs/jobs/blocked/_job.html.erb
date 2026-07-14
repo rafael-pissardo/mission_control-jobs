@@ -1,8 +1,14 @@
-<td><%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-job-link" %></td>
-<td>
-  <div class="mc-code-inline is-family-monospace is-size-7"><%= job.blocked_by %></div>
-  <div class="mc-meta has-text-grey is-size-7"><%= job.blocked_until ? "Expires #{bidirectional_time_distance_in_words_with_title(job.blocked_until)}" : "" %></div>
-</td>
-<td class="pr-0">
+<div class="mc-list-secondary">
+  <%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-list-link mc-list-link--subtle" %>
+</div>
+
+<div class="mc-list-secondary">
+  <div class="mc-code-inline"><%= job.blocked_by %></div>
+  <% if job.blocked_until %>
+    <div class="mc-meta">Expires <%= bidirectional_time_distance_in_words_with_title(job.blocked_until) %></div>
+  <% end %>
+</div>
+
+<div class="mc-list-actions">
   <%= render "mission_control/jobs/jobs/blocked/actions", job: job %>
-</td>
+</div>

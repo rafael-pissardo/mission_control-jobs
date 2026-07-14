@@ -1,7 +1,5 @@
-<div class="buttons is-right">
-  <% if queue.active? %>
-    <%= button_to "Pause", application_queue_pause_path(@application, queue.name), method: :post, class: "mc-button mc-button--success" %>
-  <% else %>
-    <%= button_to "Resume", application_queue_pause_path(@application, queue.name), method: :delete, class: "mc-button mc-button--warning" %>
-  <% end %>
-</div>
+<% if queue.active? %>
+  <%= button_to "Pause", application_queue_pause_path(@application, queue.name), method: :post, class: "mc-button mc-button--warning" %>
+<% else %>
+  <%= button_to "Resume", application_queue_pause_path(@application, queue.name), method: :delete, class: "mc-button mc-button--success" %>
+<% end %>

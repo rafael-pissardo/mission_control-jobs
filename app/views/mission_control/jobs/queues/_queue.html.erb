@@ -1,16 +1,19 @@
 <tr class="queue">
   <td>
-    <%= link_to queue.name, application_queue_path(@application, queue), class: "mc-job-link" %>
-    <% if queue.paused? %>
-      <span class="mc-tag mc-tag--warning ml-2">Paused</span>
-    <% end %>
-  </td>
-  <td>
-    <%= queue.size %>
-  </td>
-  <td class="pr-0">
-    <% if queue_pausing_supported? %>
-      <%= render "mission_control/jobs/queues/actions", queue: queue %>
-    <% end %>
+    <div class="mc-list-row mc-list-row--queues">
+      <div class="mc-list-primary">
+        <%= link_to queue.name, application_queue_path(@application, queue), class: "mc-list-link" %>
+        <% if queue.paused? %>
+          <span class="mc-tag mc-tag--warning">Paused</span>
+        <% end %>
+      </div>
+
+      <div class="mc-list-trailing mc-list-trailing--queues">
+        <span class="mc-list-count"><%= queue.size %></span>
+        <% if queue_pausing_supported? %>
+          <%= render "mission_control/jobs/queues/actions", queue: queue %>
+        <% end %>
+      </div>
+    </div>
   </td>
 </tr>

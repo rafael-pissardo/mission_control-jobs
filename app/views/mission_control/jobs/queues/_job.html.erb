@@ -1,15 +1,20 @@
 <tr class="job">
   <td>
-    <%= link_to application_job_path(@application, job.job_id, filter: { queue_name: job.queue }), class: "mc-job-link" do %>
-      <%= job_title(job) %>
-    <% end %>
-    <div class="mc-meta has-text-grey">Enqueued <%= time_distance_in_words_with_title(job.enqueued_at.to_datetime) %> ago</div>
-  </td>
-  <td>
-    <% if job.serialized_arguments.present? %>
-      <span class="mc-code-inline is-family-monospace">
-        <%= job_arguments(job) %>
-      </span>
-    <% end %>
+    <div class="mc-list-row mc-list-row--queue-jobs">
+      <div class="mc-list-primary">
+        <%= link_to application_job_path(@application, job.job_id, filter: { queue_name: job.queue }), class: "mc-list-link" do %>
+          <%= job_title(job) %>
+        <% end %>
+        <div class="mc-meta">Enqueued <%= time_distance_in_words_with_title(job.enqueued_at.to_datetime) %> ago</div>
+      </div>
+
+      <div class="mc-list-secondary">
+        <% if job.serialized_arguments.present? %>
+          <span class="mc-code-inline"><%= job_arguments(job) %></span>
+        <% else %>
+          <span class="mc-meta">—</span>
+        <% end %>
+      </div>
+    </div>
   </td>
 </tr>

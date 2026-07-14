@@ -1,2 +1,7 @@
-<td><%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-job-link" %></td>
-<td><div class="mc-meta has-text-grey"><%= time_distance_in_words_with_title(job.finished_at) %> ago</div></td>
+<div class="mc-list-secondary">
+  <%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-list-link mc-list-link--subtle" %>
+</div>
+
+<div class="mc-list-secondary mc-list-secondary--muted">
+  <%= time_distance_in_words_with_title(job.finished_at) %> ago
+</div>

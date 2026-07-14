@@ -1,5 +1,5 @@
-<div class="buttons is-right">
-  <%= button_to "Discard", application_job_discard_path(@application, job.job_id, params: jobs_filter_param), class: "mc-button mc-button--danger",
+<div class="mc-list-actions">
+  <%= button_to "Discard", application_job_discard_path(@application, job.job_id, params: jobs_filter_param), class: "mc-button mc-button--danger mc-button--compact",
     form: { data: { turbo_confirm: "This will delete the job and can't be undone. Are you sure?" } } %>
-  <%= button_to "Retry", application_job_retry_path(@application, job.job_id, params: jobs_filter_param), class: "mc-button mc-button--warning" %>
+  <%= button_to "Retry", application_job_retry_path(@application, job.job_id, params: jobs_filter_param), class: "mc-button mc-button--warning mc-button--compact" %>
 </div>

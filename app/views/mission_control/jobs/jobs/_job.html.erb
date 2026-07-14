@@ -1,13 +1,17 @@
 <tr class="job">
   <td>
-    <%= link_to job_title(job), application_job_path(@application, job.job_id), class: "mc-job-link" %>
+    <div class="mc-list-row mc-list-row--jobs-<%= jobs_status %>">
+      <div class="mc-list-primary">
+        <%= link_to job_title(job), application_job_path(@application, job.job_id), class: "mc-list-link" %>
 
-    <% if job.serialized_arguments.present? %>
-      <div class="mc-code-inline is-family-monospace"><%= job_arguments(job) %></div>
-    <% end %>
+        <% if job.serialized_arguments.present? %>
+          <div class="mc-code-inline"><%= job_arguments(job) %></div>
+        <% end %>
 
-    <div class="mc-meta has-text-grey is-size-7">Enqueued <%= time_distance_in_words_with_title(job.enqueued_at.to_datetime) %> ago</div>
+        <div class="mc-meta">Enqueued <%= time_distance_in_words_with_title(job.enqueued_at.to_datetime) %> ago</div>
+      </div>
+
+      <%= render "mission_control/jobs/jobs/#{jobs_status}/job", job: job %>
+    </div>
   </td>
-
-  <%= render "mission_control/jobs/jobs/#{jobs_status}/job", job: job %>
 </tr>

@@ -38,7 +38,13 @@ a[disabled] {
 }
 
 .mc-input,
-.mc-field .input {
+.mc-field .input,
+.mc-app input[type="text"],
+.mc-app input[type="search"],
+.mc-app input[type="datetime-local"],
+.mc-app input[type="date"],
+.mc-app input[type="time"],
+.mc-app select {
   width: 15rem;
   max-width: 100%;
   padding: 8px 12px;
@@ -48,6 +54,7 @@ a[disabled] {
   border: 1px solid var(--mc-border);
   border-radius: var(--mc-radius-sm);
   transition: border-color 120ms, box-shadow 120ms;
+  color-scheme: dark;
 }
 
 .mc-input::placeholder,
@@ -64,7 +71,7 @@ a[disabled] {
 .mc-field .input:focus {
   outline: none;
   border-color: var(--mc-primary);
-  box-shadow: var(--mc-focus-ring);
+  box-shadow: var(--mc-focus-ring), 0 0 20px var(--mc-primary-glow);
 }
 
 .mc-filter-actions {

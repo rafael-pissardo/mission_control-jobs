@@ -1,32 +1,45 @@
 :root {
   color-scheme: dark;
 
-  --mc-background: #0b0d10;
-  --mc-surface: #111419;
-  --mc-surface-raised: #171b21;
-  --mc-surface-hover: #1d222a;
+  --mc-background: #080a0f;
+  --mc-background-elevated: #0d1017;
+  --mc-surface: #12161e;
+  --mc-surface-raised: #181d27;
+  --mc-surface-hover: #1f2530;
 
-  --mc-border: #272d36;
-  --mc-border-strong: #343c48;
+  --mc-border: #2a3140;
+  --mc-border-strong: #3a4354;
 
-  --mc-text: #f2f4f7;
-  --mc-text-muted: #9aa4b2;
-  --mc-text-subtle: #717b89;
+  --mc-text: #f4f6fa;
+  --mc-text-muted: #a3adbb;
+  --mc-text-subtle: #7b8494;
 
-  --mc-primary: #7c8cff;
-  --mc-primary-hover: #93a0ff;
-  --mc-primary-contrast: #090b10;
+  --mc-primary: #8b9aff;
+  --mc-primary-hover: #a5b0ff;
+  --mc-primary-contrast: #080a0f;
+  --mc-primary-glow: rgb(139 154 255 / 32%);
 
   --mc-success: #4ade80;
+  --mc-success-glow: rgb(74 222 128 / 28%);
   --mc-warning: #fbbf24;
+  --mc-warning-glow: rgb(251 191 36 / 28%);
   --mc-danger: #fb7185;
+  --mc-danger-glow: rgb(251 113 133 / 28%);
   --mc-info: #60a5fa;
+  --mc-info-glow: rgb(96 165 250 / 28%);
 
-  --mc-radius: 8px;
-  --mc-radius-sm: 6px;
+  --mc-accent-gradient: linear-gradient(135deg, #8b9aff 0%, #6d7ef7 50%, #5b6cdb 100%);
+  --mc-surface-gradient: linear-gradient(180deg, rgb(24 29 39 / 96%) 0%, rgb(18 22 30 / 98%) 100%);
+  --mc-header-line: linear-gradient(90deg, transparent, rgb(139 154 255 / 45%), transparent);
+
+  --mc-radius: 10px;
+  --mc-radius-sm: 7px;
   --mc-radius-pill: 9999px;
 
-  --mc-focus-ring: 0 0 0 3px rgb(124 140 255 / 28%);
+  --mc-focus-ring: 0 0 0 3px rgb(139 154 255 / 30%);
+  --mc-shadow-sm: 0 1px 2px rgb(0 0 0 / 28%);
+  --mc-shadow-md: 0 8px 28px rgb(0 0 0 / 32%), 0 0 0 1px rgb(255 255 255 / 3%);
+  --mc-shadow-glow: 0 0 32px var(--mc-primary-glow);
 
   --mc-space-1: 4px;
   --mc-space-2: 8px;

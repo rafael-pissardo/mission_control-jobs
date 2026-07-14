@@ -1,0 +1,114 @@
+/* Scoped Bulma neutralization inside Mission Control shell */
+
+.mc-app a:not(.mc-button):not(.mc-nav-link):not(.mc-segment):not(.mc-dropdown-item):not(.mc-pagination-btn):not(.mc-job-link) {
+  color: var(--mc-primary);
+  text-decoration: none;
+}
+
+.mc-app a:not(.mc-button):not(.mc-nav-link):not(.mc-segment):not(.mc-dropdown-item):not(.mc-pagination-btn):not(.mc-job-link):hover {
+  color: var(--mc-primary-hover);
+}
+
+.mc-app .table {
+  background-color: transparent;
+  color: var(--mc-text);
+}
+
+.mc-app .table td,
+.mc-app .table th {
+  border-color: var(--mc-border);
+  color: inherit;
+  vertical-align: top;
+}
+
+.mc-app .table.is-hoverable tbody tr:not(.is-selected):hover {
+  background: var(--mc-surface-hover);
+}
+
+.mc-app .table thead th,
+.mc-app .table thead td {
+  border-bottom-width: 1px;
+}
+
+.mc-app .table tbody tr:last-child td {
+  border-bottom-width: 0;
+}
+
+.mc-app .button {
+  height: auto;
+  min-height: 0;
+}
+
+.mc-app .navbar,
+.mc-app .navbar-menu,
+.mc-app .navbar-item,
+.mc-app .navbar-link,
+.mc-app .navbar-dropdown,
+.mc-app .tabs,
+.mc-app .tabs ul {
+  all: unset;
+}
+
+.mc-app .mc-nav-list,
+.mc-app .mc-nav-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mc-app .mc-nav-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.mc-app .mc-header-bar {
+  display: grid;
+}
+
+.mc-app .mc-header-end {
+  display: flex;
+}
+
+.mc-app .mc-segmented-control {
+  display: inline-flex;
+}
+
+
+.mc-app form {
+  margin: 0;
+}
+
+.mc-app label {
+  display: block;
+}
+
+.mc-app input,
+.mc-app select,
+.mc-app textarea,
+.mc-app .input {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.mc-app .level,
+.mc-app .level-left,
+.mc-app .level-right {
+  display: contents;
+}
+
+.mc-app .title,
+.mc-app .subtitle {
+  color: var(--mc-text);
+  margin: 0;
+}
+
+.mc-app hr {
+  border: none;
+  border-top: 1px solid var(--mc-border);
+  margin: var(--mc-space-5) 0;
+}
+
+.mc-app pre {
+  margin: 0;
+}

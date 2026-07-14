@@ -1,15 +1,8 @@
 <% if application.servers.many? %>
-  <div class="server-selector mc-segmented-control">
-    <div class="tabs is-toggle is-toggle-rounded is-small">
-      <ul>
-        <% application.servers.each do |server| %>
-          <li class="<%= "is-active" if selected_server?(server) %>">
-            <%= link_to application_queues_path(application, server_id: server) do %>
-              <span><%= server.name %></span>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+  <div class="server-selector mc-segmented-control" role="group" aria-label="Job servers">
+    <% application.servers.each do |server| %>
+      <%= link_to server.name, application_queues_path(application, server_id: server),
+        class: class_names("mc-segment", "is-active" => selected_server?(server)) %>
+    <% end %>
   </div>
 <% end %>

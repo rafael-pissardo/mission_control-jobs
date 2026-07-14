@@ -9,7 +9,8 @@ require "net/http"
 
 DUMMY_ROOT = File.expand_path("../test/dummy", __dir__)
 SCREENSHOT_DIR = File.expand_path("../docs/images", __dir__)
-VIEWPORT = [ 1200, 1000 ].freeze
+VIEWPORT = [ 1200, 1100 ].freeze
+MIN_SCREENSHOT_BYTES = 8_000
 
 def capture_host
   ENV.fetch("CAPTURE_HOST", "host.docker.internal")
@@ -76,6 +77,9 @@ def seed_screenshot_data!
     @in_progress_worker = SolidQueue::Worker.new(queues: "*", threads: 2, polling_interval: 0.05)
     @in_progress_worker.start
     sleep 1.5
+
+    DummyJob.queue_as :default
+    4.times { |index| DummyJob.perform_later(index) }
   end
 end
 
@@ -112,30 +116,46 @@ class ScreenshotCapturer
 
   def initialize(host:)
     @host = host
+    @driver_configured = false
     configure_capybara!
     wait_for_server!
   end
 
-  def capture(name, path)
-    visit path
-    sleep 0.75
-    page.save_screenshot(File.join(SCREENSHOT_DIR, "#{name}.png"))
-    puts "Saved #{name}.png"
+  def capture(name, path, expect_nav_items: 1)
+    attempts = 0
+
+    begin
+      attempts += 1
+      reset_driver! if attempts > 1
+
+      visit path
+      assert_selector ".mc-nav-list .mc-nav-item", minimum: expect_nav_items, wait: 10
+      page.execute_script("window.scrollTo(0, 0)")
+      sleep 0.6
+
+      output = File.join(SCREENSHOT_DIR, "#{name}.png")
+      page.save_screenshot(output)
+
+      size = File.size(output)
+      raise "Screenshot #{name}.png too small (#{size} bytes)" if size < MIN_SCREENSHOT_BYTES
+
+      puts "Saved #{name}.png (#{size} bytes, #{page.all('.mc-nav-list .mc-nav-item').size} tabs)"
+    rescue Selenium::WebDriver::Error::InvalidSessionIdError, Selenium::WebDriver::Error::UnknownError => error
+      raise error if attempts >= 3
+
+      reset_driver!
+      retry
+    end
   end
 
-  def capture_queues_multiple(bc4, hey)
-    visit application_queues_path(bc4, server_id: "resque_ashburn")
-    sleep 0.5
-    page.save_screenshot(File.join(SCREENSHOT_DIR, "queues-multiple.png"))
-    puts "Saved queues-multiple.png (BC4 multi-server)"
-
-    visit application_queues_path(hey, server_id: "resque")
-    sleep 0.5
-    # overwrite only if we want HEY variant — keep BC4 multi-server as primary
+  def capture_queues_multiple(bc4)
+    capture("queues-multiple", application_queues_path(bc4, server_id: "resque_ashburn"), expect_nav_items: 2)
   end
 
   def quit
     Capybara.current_session.driver.quit if Capybara.current_session.driver
+  rescue Selenium::WebDriver::Error::InvalidSessionIdError
+    nil
   end
 
   private
@@ -154,7 +174,15 @@ class ScreenshotCapturer
       end
     end
 
-    def configure_capybara!
+    def reset_driver!
+      quit
+      Capybara.reset_sessions!
+      configure_capybara!(force: true)
+    end
+
+    def configure_capybara!(force: false)
+      return if @driver_configured && !force
+
       ActiveRecord::Base.connection_handler.clear_all_connections!(:all)
 
       Capybara.app = Rails.application
@@ -167,6 +195,8 @@ class ScreenshotCapturer
         options = Selenium::WebDriver::Chrome::Options.new
         options.add_argument("--window-size=#{VIEWPORT.join(',')}")
         options.add_argument("--force-device-scale-factor=1")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--no-sandbox")
 
         Capybara::Selenium::Driver.new(
           app,
@@ -178,6 +208,7 @@ class ScreenshotCapturer
 
       Capybara.current_driver = :selenium_chrome_remote
       Capybara.current_session.driver.browser.manage.window.resize_to(*VIEWPORT)
+      @driver_configured = true
     end
 end
 
@@ -189,19 +220,19 @@ hey = MissionControl::Jobs.applications["hey"]
 capturer = ScreenshotCapturer.new(host: capture_host)
 
 begin
-  capturer.capture "queues-simple", capturer.application_queues_path(bc4, server_id: "resque_ashburn")
-  capturer.capture "failed-jobs-simple", capturer.application_jobs_path(bc4, :failed, server_id: "resque_ashburn")
-  capturer.capture_queues_multiple(bc4, hey)
-  capturer.capture "default-queue", capturer.application_queue_path(bc4, "default", server_id: "resque_ashburn")
-  capturer.capture "in-progress-jobs", capturer.application_jobs_path(hey, :in_progress, server_id: "solid_queue")
-  capturer.capture "workers", capturer.application_workers_path(hey, server_id: "solid_queue")
+  capturer.capture "queues-simple", capturer.application_queues_path(bc4, server_id: "resque_ashburn"), expect_nav_items: 2
+  capturer.capture "failed-jobs-simple", capturer.application_jobs_path(bc4, :failed, server_id: "resque_ashburn"), expect_nav_items: 2
+  capturer.capture_queues_multiple(bc4)
+  capturer.capture "default-queue", capturer.application_queue_path(hey, "default", server_id: "solid_queue"), expect_nav_items: 7
+  capturer.capture "in-progress-jobs", capturer.application_jobs_path(hey, :in_progress, server_id: "solid_queue"), expect_nav_items: 7
+  capturer.capture "workers", capturer.application_workers_path(hey, server_id: "solid_queue"), expect_nav_items: 7
 
   if (failed_job_id = first_failed_job_id)
-    capturer.capture "single-job", capturer.application_job_path(bc4, failed_job_id, server_id: "resque_ashburn")
+    capturer.capture "single-job", capturer.application_job_path(bc4, failed_job_id, server_id: "resque_ashburn"), expect_nav_items: 2
   end
 
   if (worker_id = first_worker_id)
-    capturer.capture "single-worker", capturer.application_worker_path(hey, worker_id, server_id: "solid_queue")
+    capturer.capture "single-worker", capturer.application_worker_path(hey, worker_id, server_id: "solid_queue"), expect_nav_items: 7
   end
 ensure
   stop_in_progress_worker!

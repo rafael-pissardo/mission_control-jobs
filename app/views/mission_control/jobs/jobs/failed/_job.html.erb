@@ -1,7 +1,8 @@
-<td>
-  <%= link_to failed_job_error(job), application_job_path(@application, job.job_id, anchor: "error"), class: "mc-job-link" %>
-  <div class="mc-meta has-text-grey"><%= time_distance_in_words_with_title(job.failed_at) %> ago</div>
-</td>
-<td class="pr-0">
+<div class="mc-list-secondary">
+  <%= link_to failed_job_error(job), application_job_path(@application, job.job_id, anchor: "error"), class: "mc-list-link mc-list-link--subtle" %>
+  <div class="mc-meta"><%= time_distance_in_words_with_title(job.failed_at) %> ago</div>
+</div>
+
+<div class="mc-list-actions">
   <%= render "mission_control/jobs/jobs/failed/actions", job: job %>
-</td>
+</div>
