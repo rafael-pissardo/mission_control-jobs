@@ -44,7 +44,7 @@ class MissionControl::Jobs::RecurringTasksControllerTest < ActionDispatch::Integ
 
       follow_redirect!
 
-      assert_select "article.is-danger", /Recurring task with id 'invalid_key' not found/
+      assert_select ".mc-flash--alert", /Recurring task with id 'invalid_key' not found/
     end
   end
 end

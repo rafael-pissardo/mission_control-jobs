@@ -1,71 +1,69 @@
-<table class="table">
-  <tbody>
-  <tr>
-    <th>Arguments</th>
-    <td>
-      <div class="is-family-monospace">
+<dl class="mc-kv-grid">
+  <div class="mc-kv-item">
+    <dt>Arguments</dt>
+    <dd>
+      <div class="mc-code-inline is-family-monospace">
         <%= job_arguments(job) %>
       </div>
-    </td>
-  </tr>
-  <tr>
-    <th>Job id</th>
-    <td><%= job.job_id %></td>
-  </tr>
-  <tr>
-    <th>Queue</th>
-    <td>
-      <div class="tag">
-        <%= link_to job.queue_name, application_queue_path(@application, job.queue) %>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <th>Enqueued</th>
-    <td>
+    </dd>
+  </div>
+  <div class="mc-kv-item">
+    <dt>Job id</dt>
+    <dd><%= job.job_id %></dd>
+  </div>
+  <div class="mc-kv-item">
+    <dt>Queue</dt>
+    <dd>
+      <span class="mc-tag mc-tag--neutral">
+        <%= link_to job.queue_name, application_queue_path(@application, job.queue), class: "mc-job-link" %>
+      </span>
+    </dd>
+  </div>
+  <div class="mc-kv-item">
+    <dt>Enqueued</dt>
+    <dd>
       <%= time_distance_in_words_with_title(job.enqueued_at.to_datetime) %> ago
-    </td>
-  </tr>
+    </dd>
+  </div>
   <% if job.scheduled? %>
-    <tr>
-      <th>Scheduled</th>
-      <td>
+    <div class="mc-kv-item">
+      <dt>Scheduled</dt>
+      <dd>
         <%= bidirectional_time_distance_in_words_with_title(job.scheduled_at) %>
         <% if job_delayed?(job) %>
-          <div class="is-danger tag ml-4">delayed</div>
+          <span class="mc-tag mc-tag--danger ml-2">delayed</span>
         <% end %>
-      </td>
-    </tr>
+      </dd>
+    </div>
   <% end %>
   <% if job.failed? %>
-    <tr>
-      <th>Failed</th>
-      <td>
+    <div class="mc-kv-item">
+      <dt>Failed</dt>
+      <dd>
         <%= time_distance_in_words_with_title(job.failed_at) %> ago
-      </td>
-    </tr>
+      </dd>
+    </div>
   <% end %>
   <% if job.finished_at.present? %>
-    <tr>
-      <th>Finished</th>
-      <td>
+    <div class="mc-kv-item">
+      <dt>Finished</dt>
+      <dd>
         <%= time_distance_in_words_with_title(job.finished_at) %> ago
-      </td>
-    </tr>
-    <tr>
-      <th>Duration</th>
-      <td>
+      </dd>
+    </div>
+    <div class="mc-kv-item">
+      <dt>Duration</dt>
+      <dd>
         <%= job.duration.round(3) %> seconds
-      </td>
-    </tr>
+      </dd>
+    </div>
   <% end %>
   <% if job.worker_id.present? %>
-    <tr>
-      <th>Processed by</th>
-      <td>
-        <%= link_to "worker #{job.worker_id}", application_worker_path(@application, job.worker_id) %>
-      </td>
-    </tr>
+    <div class="mc-kv-item">
+      <dt>Processed by</dt>
+      <dd>
+        <%= link_to "worker #{job.worker_id}", application_worker_path(@application, job.worker_id), class: "mc-job-link" %>
+      </dd>
+    </div>
   <% end %>
-  </tbody>
-</table>
+</dl>

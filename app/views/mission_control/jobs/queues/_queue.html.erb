@@ -1,8 +1,8 @@
 <tr class="queue">
   <td>
-    <%= link_to queue.name, application_queue_path(@application, queue) %>
+    <%= link_to queue.name, application_queue_path(@application, queue), class: "mc-job-link" %>
     <% if queue.paused? %>
-      <span class="ml-4 tag is-warning">Paused</span>
+      <span class="mc-tag mc-tag--warning ml-2">Paused</span>
     <% end %>
   </td>
   <td>

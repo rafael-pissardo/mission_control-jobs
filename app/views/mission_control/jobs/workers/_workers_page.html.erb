@@ -1,15 +1,15 @@
-<table class="workers table jobs is-hoverable is-fullwidth">
-  <tbody>
-  <thead>
-  <tr>
-    <th>Worker</th>
-    <th>Hostname</th>
-    <th class="job-header">Jobs</th>
-    <th>Last heartbeat</th>
-  </tr>
-  </thead>
-
-  <%= render partial: "mission_control/jobs/workers/worker", collection: workers_page.records %>
-
-  </tbody>
-</table>
+<div class="mc-table-wrapper">
+  <table class="workers table jobs mc-table is-fullwidth">
+    <thead>
+      <tr>
+        <th scope="col">Worker</th>
+        <th scope="col">Hostname</th>
+        <th class="job-header" scope="col">Jobs</th>
+        <th scope="col">Last heartbeat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "mission_control/jobs/workers/worker", collection: workers_page.records %>
+    </tbody>
+  </table>
+</div>

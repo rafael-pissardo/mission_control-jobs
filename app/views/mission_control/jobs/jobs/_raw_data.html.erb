@@ -1,4 +1,4 @@
-<h2 class="subtitle">Raw data</h2>
-<pre>
-  <%= JSON.pretty_generate(job.filtered_raw_data.without("backtrace")) %>
+<h2 class="mc-section-title">Raw data</h2>
+<pre class="mc-code-block">
+<%= JSON.pretty_generate(job.filtered_raw_data.without("backtrace")) %>
 </pre>

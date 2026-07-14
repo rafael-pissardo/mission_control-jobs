@@ -25,6 +25,10 @@ module MissionControl::Jobs::NavigationHelper
     @current_section = section
   end
 
+  def navigation_label_parts(label)
+    label.match(/\A(.+?)\s*\(([^)]+)\)\z/)&.captures || [ label, nil ]
+  end
+
   def selected_application?(application)
     MissionControl::Jobs::Current.application.name == application.name
   end

@@ -1,22 +1,22 @@
 <% if job.failed? %>
-  <h2 class="subtitle">Error information</h2>
+  <h2 class="mc-section-title">Error information</h2>
 
-  <table class="table">
-    <tbody>
-    <tr>
-      <th>Type</th>
-      <td> <%= job.last_execution_error.error_class %> </td>
-    </tr>
-    <tr>
-      <th>Message</th>
-      <td> <%= job.last_execution_error.try(:message) || job.last_execution_error.inspect %> </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="mc-error-panel">
+    <dl class="mc-kv-grid">
+      <div class="mc-kv-item">
+        <dt>Type</dt>
+        <dd><%= job.last_execution_error.error_class %></dd>
+      </div>
+      <div class="mc-kv-item">
+        <dt>Message</dt>
+        <dd><%= job.last_execution_error.try(:message) || job.last_execution_error.inspect %></dd>
+      </div>
+    </dl>
+  </div>
 
   <% if @server.backtrace_cleaner %>
     <%= render "mission_control/jobs/jobs/failed/backtrace_toggle", application: @application, job: job %>
   <% end %>
 
-  <pre class="is-family-monospace mb-4 backtrace-content"><%= failed_job_backtrace(job, @server) %></pre>
+  <pre class="mc-code-block is-family-monospace mb-4 backtrace-content"><%= failed_job_backtrace(job, @server) %></pre>
 <% end %>

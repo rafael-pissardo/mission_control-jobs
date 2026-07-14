@@ -1,17 +1,16 @@
-<h1 class="title">
-  <div class="level">
-    <div class="level-left">
-      <%= queue.name %>
-      <% if queue.paused? %>
-        <span class="ml-4 tag is-warning">Paused</span>
-      <% end %>
-    </div>
-    <% if queue_pausing_supported? %>
-      <div class="level-right">
-        <%= render "mission_control/jobs/queues/actions", queue: queue %>
-      </div>
+<div class="mc-detail-header">
+  <div class="mc-detail-header-title">
+    <%= queue.name %>
+    <% if queue.paused? %>
+      <span class="mc-tag mc-tag--warning">Paused</span>
     <% end %>
   </div>
-</h1>
 
-<h2 class="subtitle"><%= pluralize queue.size, "pending job" %></h2>
+  <% if queue_pausing_supported? %>
+    <div class="mc-detail-header-actions">
+      <%= render "mission_control/jobs/queues/actions", queue: queue %>
+    </div>
+  <% end %>
+</div>
+
+<p class="mc-meta"><%= pluralize queue.size, "pending job" %></p>

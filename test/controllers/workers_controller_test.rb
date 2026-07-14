@@ -24,7 +24,7 @@ class MissionControl::Jobs::WorkersControllerTest < ActionDispatch::IntegrationT
       assert_response :ok
 
       assert_select "tr.worker", 2
-      assert_select "nav[aria-label=\"pagination\"]", /1 \/ 3/
+      assert_select "nav[aria-label=\"pagination\"]", /Page 1 of 3/
     end
   end
 
@@ -35,8 +35,8 @@ class MissionControl::Jobs::WorkersControllerTest < ActionDispatch::IntegrationT
       get mission_control_jobs.application_worker_url(@application, worker.id)
       assert_response :ok
 
-      assert_select "h1", /Worker #{worker.id} — PID: \d+/
-      assert_select "h2", "Running 2 jobs"
+      assert_select ".mc-detail-header-title", /Worker #{worker.id} — PID: \d+/
+      assert_select ".mc-section-title", /Running 2 jobs/
     end
   end
 end

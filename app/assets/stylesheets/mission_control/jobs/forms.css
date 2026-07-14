@@ -1,8 +1,91 @@
-/* Hide the HTML datalist wonky arrow in Safari and Chrome, since we add it via bulma. */
 [list]::-webkit-calendar-picker-indicator {
-    opacity: 0;
+  opacity: 0;
 }
 
 a[disabled] {
-    pointer-events: none;
+  pointer-events: none;
+}
+
+.mc-filter-bar {
+  flex: 1;
+  min-width: 0;
+}
+
+.mc-filter-form {
+  width: 100%;
+}
+
+.mc-filter-fields {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--mc-space-3);
+  flex-wrap: wrap;
+}
+
+.mc-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mc-space-1);
+  min-width: 0;
+}
+
+.mc-label,
+.mc-field .label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--mc-text-muted);
+  margin-bottom: 0;
+}
+
+.mc-input,
+.mc-field .input {
+  width: 15rem;
+  max-width: 100%;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  color: var(--mc-text);
+  background: var(--mc-surface-raised);
+  border: 1px solid var(--mc-border);
+  border-radius: var(--mc-radius-sm);
+  transition: border-color 120ms, box-shadow 120ms;
+}
+
+.mc-input::placeholder,
+.mc-field .input::placeholder {
+  color: var(--mc-text-subtle);
+}
+
+.mc-input:hover,
+.mc-field .input:hover {
+  border-color: var(--mc-border-strong);
+}
+
+.mc-input:focus,
+.mc-field .input:focus {
+  outline: none;
+  border-color: var(--mc-primary);
+  box-shadow: var(--mc-focus-ring);
+}
+
+.mc-filter-actions {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1px;
+}
+
+.filter input {
+  width: 15rem;
+}
+
+.filter .select {
+  display: block;
+}
+
+.filter .select.is-rounded {
+  border-radius: var(--mc-radius-sm);
+}
+
+.filter .field.is-grouped {
+  gap: var(--mc-space-3);
+  flex-wrap: wrap;
 }

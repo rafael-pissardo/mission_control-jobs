@@ -1,11 +1,9 @@
-<h1 class="title">
-  <div class="level">
-    <div class="level-left">
-      <%= "Worker #{worker.id} — #{worker.name}" %>
-    </div>
-
-    <div class="level-right is-family-monospace">
-      <%= worker.hostname %>
-    </div>
+<div class="mc-detail-header">
+  <div class="mc-detail-header-title">
+    Worker <%= worker.id %> — <%= worker.name %>
   </div>
-</h1>
+
+  <div class="mc-detail-header-meta">
+    <%= worker.hostname %>
+  </div>
+</div>

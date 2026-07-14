@@ -1,10 +1,9 @@
-<h1 class="title">
-  <div class="level">
-    <div class="level-left">
-      <%= recurring_task.id %>
-    </div>
-    <div class="level-right">
-      <%= render "mission_control/jobs/recurring_tasks/actions", recurring_task: recurring_task %>
-    </div>
+<div class="mc-detail-header">
+  <div class="mc-detail-header-title">
+    <%= recurring_task.id %>
   </div>
-</h1>
+
+  <div class="mc-detail-header-actions">
+    <%= render "mission_control/jobs/recurring_tasks/actions", recurring_task: recurring_task %>
+  </div>
+</div>

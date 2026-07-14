@@ -1,35 +1,28 @@
-<div class="filter level-left">
+<div class="filter mc-filter-bar">
   <%= form_for :filter, url: application_jobs_path(MissionControl::Jobs::Current.application, jobs_status), method: :get,
+    html: { class: "mc-filter-form" },
     data: { controller: "form", action: "input->form#debouncedSubmit" } do |form| %>
 
-    <div class="field is-grouped">
-      <div class="control">
-        <%= form.label :job_class_name, class: "label" %>
-        <div class="select is-rounded">
-          <%= form.text_field :job_class_name, value: @job_filters[:job_class_name], class: "input", list: "job-classes", placeholder: "Filter by job class...", autocomplete: "off" %>
-        </div>
+    <div class="mc-filter-fields">
+      <div class="mc-field">
+        <%= form.label :job_class_name, class: "mc-label" %>
+        <%= form.text_field :job_class_name, value: @job_filters[:job_class_name], class: "mc-input", list: "job-classes", placeholder: "Filter by job class...", autocomplete: "off" %>
       </div>
 
-      <div class="control">
-        <%= form.label :queue_name, class: "label" %>
-        <div class="select is-rounded">
-          <%= form.text_field :queue_name, value: @job_filters[:queue_name], class: "input", list: "queue-names", placeholder: "Filter by queue name...", autocomplete: "off" %>
-        </div>
+      <div class="mc-field">
+        <%= form.label :queue_name, class: "mc-label" %>
+        <%= form.text_field :queue_name, value: @job_filters[:queue_name], class: "mc-input", list: "queue-names", placeholder: "Filter by queue name...", autocomplete: "off" %>
       </div>
 
       <% if jobs_status == "finished" %>
-        <div class="control">
-          <%= form.label :finished_at_start, class: "label" %>
-          <div class="select is-rounded">
-            <%= form.datetime_field :finished_at_start, value: @job_filters[:finished_at]&.begin, class: "input", placeholder: "Finished from" %>
-          </div>
+        <div class="mc-field">
+          <%= form.label :finished_at_start, class: "mc-label" %>
+          <%= form.datetime_field :finished_at_start, value: @job_filters[:finished_at]&.begin, class: "mc-input", placeholder: "Finished from" %>
         </div>
 
-        <div class="control">
-          <%= form.label :finished_at_end, class: "label" %>
-          <div class="select is-rounded">
-            <%= form.datetime_field :finished_at_end, value: @job_filters[:finished_at]&.end, class: "input", placeholder: "Finished to" %>
-          </div>
+        <div class="mc-field">
+          <%= form.label :finished_at_end, class: "mc-label" %>
+          <%= form.datetime_field :finished_at_end, value: @job_filters[:finished_at]&.end, class: "mc-input", placeholder: "Finished to" %>
         </div>
       <% end %>
 
@@ -47,8 +40,8 @@
         <% end %>
       </datalist>
 
-      <div class="control is-align-self-flex-end">
-        <%= link_to "Clear", application_jobs_path(MissionControl::Jobs::Current.application, jobs_status, job_class_name: nil, queue_name: nil, finished_at: nil..nil), class: "button" %>
+      <div class="mc-filter-actions">
+        <%= link_to "Clear", application_jobs_path(MissionControl::Jobs::Current.application, jobs_status, job_class_name: nil, queue_name: nil, finished_at: nil..nil), class: "mc-button mc-button--ghost" %>
       </div>
     </div>
   <% end %>

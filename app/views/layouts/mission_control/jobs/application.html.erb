@@ -1,27 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="dark">
 <head>
-  <title>Mission control - <%= page_title %></title>
+  <title>Mission Control — <%= page_title %></title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="turbo-cache-control" content="no-cache">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <%= stylesheet_link_tag "mission_control/jobs/bulma.min" %>
   <%= stylesheet_link_tag "mission_control/jobs/application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags "application", importmap: MissionControl::Jobs.importmap  %>
 </head>
-<body>
+<body class="mc-body">
 
-<section class="section">
-  <div class="container">
+<div class="mc-app">
+  <header class="mc-header">
     <%= render "layouts/mission_control/jobs/application_selection" %>
-    <%= render "layouts/mission_control/jobs/flash" %>
-    <%= render "layouts/mission_control/jobs/navigation" %>
-    <%= yield %>
-  </div>
-</section>
+  </header>
+
+  <main class="mc-main">
+    <div class="mc-container">
+      <%= render "layouts/mission_control/jobs/flash" %>
+      <%= render "layouts/mission_control/jobs/navigation" %>
+
+      <% if page_title.present? %>
+        <header class="mc-page-header">
+          <h1 class="mc-page-title"><%= page_title %></h1>
+        </header>
+      <% end %>
+
+      <div class="mc-page-content">
+        <%= yield %>
+      </div>
+    </div>
+  </main>
+</div>
 
 </body>
 </html>

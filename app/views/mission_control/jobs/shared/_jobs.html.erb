@@ -1,14 +1,14 @@
-<table class="jobs table is-hoverable is-fullwidth">
-  <tbody>
-  <thead>
-  <tr>
-    <th class="job-header">Job</th>
-    <th></th>
-    <th class="duration-header"></th>
-  </tr>
-  </thead>
-
-  <%= render partial: "mission_control/jobs/shared/job", collection: jobs %>
-
-  </tbody>
-</table>
+<div class="mc-table-wrapper">
+  <table class="jobs table mc-table is-fullwidth">
+    <thead>
+      <tr>
+        <th class="job-header" scope="col">Job</th>
+        <th scope="col"></th>
+        <th class="duration-header" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "mission_control/jobs/shared/job", collection: jobs %>
+    </tbody>
+  </table>
+</div>

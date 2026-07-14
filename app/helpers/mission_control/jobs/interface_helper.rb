@@ -1,23 +1,24 @@
 module MissionControl::Jobs::InterfaceHelper
   def blank_status_notice(message)
-    tag.div message, class: "mt-6 has-text-centered is-size-3 has-text-grey"
+    tag.div class: "mc-empty-state" do
+      safe_join([
+        tag.div("No results", class: "mc-empty-title"),
+        tag.p(message, class: "mc-empty-message")
+      ])
+    end
   end
 
   def blank_status_emoji(status)
-    case status.to_s
-    when "failed", "blocked" then "😌"
-    else ""
-    end
+    ""
   end
 
   def modifier_for_status(status)
-    case status.to_s
-    when "failed"      then "is-danger"
-    when "blocked"     then "is-warning"
-    when "finished"    then "is-success"
-    when "scheduled"   then "is-info"
-    when "in_progress" then "is-primary"
-    else "is-primary is-light"
-    end
+    {
+      "failed"      => "mc-tag mc-tag--danger",
+      "blocked"     => "mc-tag mc-tag--warning",
+      "finished"    => "mc-tag mc-tag--success",
+      "scheduled"   => "mc-tag mc-tag--info",
+      "in_progress" => "mc-tag mc-tag--primary"
+    }.fetch(status.to_s, "mc-tag mc-tag--neutral")
   end
 end
